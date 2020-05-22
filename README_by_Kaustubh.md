@@ -25,7 +25,7 @@ Method :
 Or
 2. cd Documents/Vision\ Research/Results/<Outer-Folder-of-<folder>>/robust_physical_perturbations/gtsrb-cnn-attack/
 
-(Note : Specify <folder>’s in below bash)
+(Note : Specify \<folder\>’s in below bash)
 
 3. bash produce_softmax_outputs.sh
 
