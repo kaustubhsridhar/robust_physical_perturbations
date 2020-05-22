@@ -24,7 +24,7 @@ Downloaded gtsrb model weights from https://drive.google.com/drive/u/1/folders/1
 * conda activate vision_env_py2
 
 * cd Documents/Vision\ Research/Results/\<Outer-Folder-of-\<folder\>\>/robust_physical_perturbations/lisa-cnn-attack/
-Or
+#### Or
 * cd Documents/Vision\ Research/Results/\<Outer-Folder-of-\<folder\>\>/robust_physical_perturbations/gtsrb-cnn-attack/
 
 (Note : Specify \<folder\>’s in below bash)
