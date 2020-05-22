@@ -14,6 +14,7 @@ from tensorflow.python.tools.inspect_checkpoint import print_tensors_in_checkpoi
 from utils import setup_model_and_sess, load_norm_img_from_source
 
 import numpy as np
+import pandas as pd
 import cv2
 import os
 
@@ -24,13 +25,20 @@ def main(argv=None):
     model, sess = setup_model_and_sess()
     x = tf.placeholder('float32', (1, 32, 32, 3))
     model_op = model(x)
+    d = {} # added
 
     for image in os.listdir(FLAGS.attack_srcdir):
         model_out = sess.run(model_op, feed_dict={x: [load_norm_img_from_source(os.path.join(FLAGS.attack_srcdir,image))], keras.backend.learning_phase(): 0})
+
+        d.update({image: list(model_out[0])}) # added
+        
         print image, 
         for c, p in top3(model_out, 0):
             print c, p,
         print
+
+    df = pd.DataFrame(d).T # added
+    df.to_csv(FLAGS.attack_srcdir+"/predictions.csv") # added
 
 if __name__ == "__main__":
     app.run()

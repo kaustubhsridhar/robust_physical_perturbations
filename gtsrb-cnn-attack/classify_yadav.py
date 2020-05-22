@@ -10,6 +10,7 @@ from tensorflow.python.platform import flags
 from utils.model import YadavModel
 from utils.dataproc import read_img, preprocess_yadav
 from utils.eval import top3_as_string
+import pandas as pd # added
 
 import cv2
 
@@ -19,6 +20,7 @@ flags.DEFINE_string('srcimgs', 'bb_images/mcity_iphone_27Aug/grab_mcity_iphone_a
 
 
 def main(argv=None):
+    d = {} # added
     imgnames = filter(lambda x: x.lower().endswith(".jpg") or x.lower().endswith(".png"), os.listdir(FLAGS.srcimgs))
     imgs = np.asarray(map(lambda x: preprocess_yadav(x),
                           map(lambda x: cv2.resize(read_img(os.path.join(FLAGS.srcimgs, x)), (FLAGS.img_cols, FLAGS.img_rows)),
@@ -35,10 +37,14 @@ def main(argv=None):
         sys.stdout.flush()
         output = sess.run(model.labels_pred, feed_dict={model.features: imgs, model.keep_prob: 1.0}) 
         for i in range(len(imgs)):
+            d.update({imgnames[i]: list(output[i])}) # added
             results.append((imgnames[i], top3_as_string(output, i)))
 
     for i in range(len(results)):
         print results[i][0], results[i][1]
+
+    df = pd.DataFrame(d).T # added
+    df.to_csv(FLAGS.srcimgs+"/predictions.csv") # added
 
 if __name__ == "__main__":
     app.run()
