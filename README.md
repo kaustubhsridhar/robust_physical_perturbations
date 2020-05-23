@@ -1,6 +1,6 @@
 ### README BY KAUSTUBH SRIDHAR
 
-Original : https://github.com/evtimovi/robust_physical_perturbations
+Original : https://github.com/evtimovi/robust_physical_perturbations (follow virtual environment setup instructions here from readme inside lisa-cnn-attack folder)
 
 Paper : https://arxiv.org/pdf/1707.08945.pdf
 
