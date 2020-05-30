@@ -30,6 +30,7 @@ Downloaded gtsrb model weights from https://drive.google.com/drive/u/1/folders/1
 * cd Documents/Vision\ Research/Results/\<Outer-Folder-of-\<folder\>\>/robust_physical_perturbations/gtsrb-cnn-attack/
 
 (Note : Specify \<folder\>’s in below bash)
+(Note : Specify how many images you want to classify with 1st entry in brackets on line 29; default classifies all images in folder; can reduce if any memory error crops up)
 
 * bash produce_softmax_outputs.sh
 
