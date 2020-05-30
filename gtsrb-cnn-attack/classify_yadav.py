@@ -26,6 +26,7 @@ def main(argv=None):
                           map(lambda x: cv2.resize(read_img(os.path.join(FLAGS.srcimgs, x)), (FLAGS.img_cols, FLAGS.img_rows)),
                               imgnames))
                       , dtype=np.float32)
+    imgs = imgs[:,:,:] # imgs[:5000,:,:] takes first 5000 and imgs[5000:,:,:] will do the rest
     print 'Loaded images from %s'%FLAGS.srcimgs
     sys.stdout.flush()
     results = []
@@ -35,11 +36,12 @@ def main(argv=None):
         saver.restore(sess, FLAGS.weights)
         print 'Loaded model from %s'%FLAGS.weights
         sys.stdout.flush()
+        print("anticipation of softmax production") #too many images causes below line to fail for some reason
         output = sess.run(model.labels_pred, feed_dict={model.features: imgs, model.keep_prob: 1.0}) 
+        print("completion of softmax production")
         for i in range(len(imgs)):
             d.update({imgnames[i]: list(output[i])}) # added
             results.append((imgnames[i], top3_as_string(output, i)))
-
     for i in range(len(results)):
         print results[i][0], results[i][1]
 
